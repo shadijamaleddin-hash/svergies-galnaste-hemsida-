@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="sv" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sveriges Galnaste Hemsida 🇸🇪🎉</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Bungee&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Fredoka', cursive, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            transition: transform 0.5s ease, filter 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        .font-bungee {
+            font-family: 'Bungee', cursive;
+        }
+
+        /* Animated background elements */
+        .floating-emoji {
+            position: fixed;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(15deg); }
+        }
+
+        /* Crazy mode classes */
+        .rotate-screen {
+            transform: rotate(180deg);
+        }
+
+        .shake-screen {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-4px, 0, 0); }
+            20%, 80% { transform: translate3d(8px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+            40%, 60% { transform: translate3d(8px, 0, 0); }
+        }
+
+        .rainbow-bg {
+            animation: rainbow 2s linear infinite;
+        }
+
+        @keyframes rainbow {
+            0% { background: #ff0000; }
+            17% { background: #ff7f00; }
+            33% { background: #ffff00; }
+            50% { background: #00ff00; }
+            67% { background: #0000ff; }
+            84% { background: #8b00ff; }
+            100% { background: #ff0000; }
+        }
+
+        /* Clicker animation */
+        .click-scale {
+            transition: transform 0.05s ease-in-out;
+        }
+        .click-scale:active {
+            transform: scale(0.85) rotate(-5deg);
+        }
+
+        .floating-text {
+            position: absolute;
+            animation: floatUp 1s ease-out forwards;
+            pointer-events: none;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #d97706;
+            text-shadow: 2px 2px 0px #fff;
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-50px) scale(1.5); }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff4757;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body class="min-h-full text-slate-800 pb-12 relative">
+
+    <!-- Floating Background Emojis -->
+    <div class="floating-emoji text-4xl top-10 left-10" style="animation-delay: 0s;">🧦</div>
+    <div class="floating-emoji text-5xl top-1/4 right-12" style="animation-delay: 1s;">🧆</div>
+    <div class="floating-emoji text-4xl bottom-20 left-16" style="animation-delay: 2s;">🦄</div>
+    <div class="floating-emoji text-6xl bottom-1/3 right-1/4" style="animation-delay: 1.5s;">🥨</div>
+
+    <!-- Main Container -->
+    <div id="main-container" class="max-w-5xl mx-auto px-4 pt-6 relative z-10">
+
+        <!-- Header Banner -->
+        <header class="text-center bg-yellow-300 border-4 border-black p-6 rounded-3xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] mb-8 transform -rotate-1 hover:rotate-0 transition-transform">
+            <h1 class="text-4xl md:text-6xl font-bungee text-blue-600 drop-shadow-[3px_3px_0px_rgba(255,255,255,1)]">
+                🇸🇪 GALNASte HEMSIDAN! 🎉
+            </h1>
+            <p class="text-lg md:text-xl font-bold mt-2 text-slate-800">
+                Varning: Kan innehålla spår av fika, Pappaskämt och total meningslöshet.
+            </p>
+            <div class="mt-3 flex justify-center gap-2 flex-wrap">
+                <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold border-2 border-black animate-pulse">100% Fri från Nytta</span>
+                <span class="bg-green-400 text-black px-3 py-1 rounded-full text-sm font-bold border-2 border-black">Extra Kanel</span>
+                <span class="bg-purple-400 text-white px-3 py-1 rounded-full text-sm font-bold border-2 border-black">Lagom™ Godkänd</span>
+            </div>
+        </header>
+
+        <!-- GRID SECTION -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- 1. DEN MENINGSLÖSA KNAPPEN -->
+            <section class="bg-white border-4 border-black p-6 rounded-3xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between items-center text-center">
+                <div>
+                    <h2 class="text-2xl font-bungee text-pink-500 mb-2">🔴 Den Meningslösa Knappen</h2>
+                    <p class="text-sm text-gray-600 mb-4">Tryck på EGEN RISK! Ingen vet vad som händer. Kanske ingenting, kanske kaos.</p>
+                </div>
+                
+                <div class="my-6">
+                    <button id="useless-btn" onclick="triggerUselessAction()" class="bg-red-500 hover:bg-red-600 text-white font-bungee text-2xl py-6 px-8 rounded-full border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer">
+                        TRYCK INTE HÄR!
+                    </button>
+                </div>
+
+                <div id="useless-msg" class="text-md font-bold text-indigo-700 min-h-[2rem] flex items-center justify-center">
+                    Gör det inte... jag varnar dig!
+                </div>
+            </section>
+
+            <!-- 2. PAPPASKÄMT-GENERATOR -->
+            <section class="bg-blue-100 border-4 border-black p-6 rounded-3xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between">
+                <div>
+                    <h2 class="text-2xl font-bungee text-blue-600 mb-2">🥁 Pappaskämt-Maskinen</h2>
+                    <p class="text-sm text-gray-600 mb-4">Garanterat torra skämt som får dina vänner att sucka högt.</p>
+                </div>
+
+                <div class="bg-white border-2 border-black p-4 rounded-2xl my-2 min-h-[100px] flex flex-col justify-center items-center text-center shadow-inner">
+                    <p id="joke-text" class="text-lg font-bold text-slate-800">Klicka på knappen nedan för att lida!</p>
+                    <p id="joke-punchline" class="text-md font-extrabold text-blue-600 mt-2 hidden"></p>
+                </div>
+
+                <div class="flex gap-2 mt-4">
+                    <button onclick="generateJoke()" class="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-4 rounded-2xl border-3 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all">
+                        Dra ett skämt! 🎉
+                    </button>
+                    <button id="punchline-btn" onclick="showPunchline()" disabled class="bg-gray-300 text-gray-500 font-bold py-3 px-4 rounded-2xl border-3 border-black cursor-not-allowed transition-all">
+                        Svar? 🤔
+                    </button>
+                </div>
+            </section>
+
+            <!-- 3. KANELBULLE-KLICKAREN (MINISPEL) -->
+            <section class="bg-amber-100 border-4 border-black p-6 rounded-3xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:col-span-2 relative overflow-hidden">
+                <div class="text-center mb-4">
+                    <h2 class="text-3xl font-bungee text-amber-800">🧁 Kanelbulle-Klickaren</h2>
+                    <p class="text-sm text-amber-900 font-semibold">Klicka på bullen, samla fika-poäng och bli Sveriges Fikakung!</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <!-- Klick-yta -->
+                    <div class="flex flex-col items-center justify-center relative">
+                        <div class="text-2xl font-bungee text-amber-900 mb-2">
+                            Poäng: <span id="bulle-count" class="text-4xl text-amber-600">0</span> bullar
+                        </div>
+                        <p class="text-xs text-amber-700 font-bold mb-4"><span id="bps-count">0</span> bullar/sekund</p>
+
+                        <!-- Bulle-knapp -->
+                        <div class="relative cursor-pointer select-none">
+                            <div id="bulle-btn" onclick="clickBulle(event)" class="text-9xl transform hover:scale-110 click-scale transition-transform duration-100 drop-shadow-[0_10px_0_rgba(0,0,0,0.2)]">
+                                🥯
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Uppgraderingar -->
+                    <div class="bg-white border-3 border-black p-4 rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-3">
+                        <h3 class="font-bungee text-lg text-slate-800 border-b-2 border-black pb-1">Fika-Uppgraderingar</h3>
+                        
+                        <!-- Uppgradering 1 -->
+                        <button onclick="buyUpgrade(1)" id="upg1-btn" class="w-full text-left bg-amber-50 hover:bg-amber-100 p-2 rounded-xl border-2 border-black flex justify-between items-center transition-all disabled:opacity-50">
+                            <div>
+                                <div class="font-bold text-sm">☕ Snabbkaffe-Boost</div>
+                                <div class="text-xs text-gray-600">+1 bulle per klick</div>
+                            </div>
+                            <span id="upg1-cost" class="bg-amber-400 font-bold text-xs px-2 py-1 rounded-lg border border-black">10 bullar</span>
+                        </button>
+
+                        <!-- Uppgradering 2 -->
+                        <button onclick="buyUpgrade(2)" id="upg2-btn" class="w-full text-left bg-amber-50 hover:bg-amber-100 p-2 rounded-xl border-2 border-black flex justify-between items-center transition-all disabled:opacity-50">
+                            <div>
+                                <div class="font-bold text-sm">👵 Mormors Geheima Recept</div>
+                                <div class="text-xs text-gray-600">+2 bullar/sekund</div>
+                            </div>
+                            <span id="upg2-cost" class="bg-amber-400 font-bold text-xs px-2 py-1 rounded-lg border border-black">50 bullar</span>
+                        </button>
+
+                        <!-- Uppgradering 3 -->
+                        <button onclick="buyUpgrade(3)" id="upg3-btn" class="w-full text-left bg-amber-50 hover:bg-amber-100 p-2 rounded-xl border-2 border-black flex justify-between items-center transition-all disabled:opacity-50">
+                            <div>
+                                <div class="font-bold text-sm">🚜 Svärmors Super-Degblandare</div>
+                                <div class="text-xs text-gray-600">+10 bullar/sekund</div>
+                            </div>
+                            <span id="upg3-cost" class="bg-amber-400 font-bold text-xs px-2 py-1 rounded-lg border border-black">200 bullar</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. URSÄKTSGENERATOR -->
+            <section class="bg-green-100 border-4 border-black p-6 rounded-3xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between">
+                <div>
+                    <h2 class="text-2xl font-bungee text-green-700 mb-2">🤥 Bortförklarings-Maskinen</h2>
+                    <p class="text-sm text-gray-600 mb-4">Behöver du en vattentät ursäkt för varför du sitter vid datorn?</p>
+                </div>
+
+                <div class="space-y-3">
+                    <label class="block text-sm font-bold text-gray-700">Välj situation:</label>
+                    <select id="excuse-situation" class="w-full p-3 rounded-xl border-3 border-black font-bold bg-white focus:outline-none">
+                        <option value="boss">Chefen undrar varför du inte jobbar</option>
+                        <option value="partner">Partnern vill att du ska dammsuga</option>
+                        <option value="friend">Kompisen vill att du ska hjälpa till att flytta</option>
+                        <option value="dinner">Du vill slippa släktmiddagen</option>
+                    </select>
+
+                    <div id="excuse-output" class="bg-white border-2 border-black p-4 rounded-2xl text-center min-h-[80px] flex items-center justify-center font-bold text-green-900 italic">
+                        Klicka på knappen för att rädda ditt skinn!
+                    </div>
+                </div>
+
+                <button onclick="generateExcuse()" class="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-bungee py-3 px-4 rounded-2xl border-3 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none transition-all">
+                    Generera Ursäkt! 🚀
+                </button>
+            </section>
+
+            <!-- 5. "BLI INTE ARG"-TESTET -->
+            <section class="bg-purple-100 border-4 border-black p-6 rounded-3xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between">
+                <div>
+                    <h2 class="text-2xl font-bungee text-purple-700 mb-2">🎯 Tålamodstestet</h2>
+                    <p class="text-sm text-gray-600 mb-2">Klicka på den gröna knappen för att vinna 1 000 000 kr! (Eller nåt...)</p>
+                </div>
+
+                <div id="game-arena" class="relative w-full h-48 bg-white border-3 border-black rounded-2xl overflow-hidden my-2 flex items-center justify-center">
+                    <button id="elusive-btn" onmouseover="moveButton()" onclick="winGame()" class="absolute bg-green-500 text-white font-bungee px-4 py-2 rounded-xl border-2 border-black shadow transition-all duration-150 cursor-pointer">
+                        KLICKA MIG!
+                    </button>
+                </div>
+
+                <p id="patience-status" class="text-center font-bold text-purple-900 text-sm">
+                    Antal försök: <span id="try-count">0</span> | Status: Lugn som en filbunke 🧘
+                </p>
+            </section>
+
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="mt-12 text-center bg-white border-4 border-black p-4 rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+            <p class="font-bold text-gray-700">Skapad med 💛, 💙 och alldeles för mycket kaffe.</p>
+            <p class="text-xs text-gray-500 mt-1">Inga kanelbullar skadades under tillverkningen av denna hemsida.</p>
+        </footer>
+
+    </div>
+
+    <!-- AUDIO & JAVASCRIPT LOGIC -->
+    <script>
+        /* ================= WEB AUDIO API SOUND SYSTEM ================= */
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+        }
+
+        // Play procedural sound effects
+        function playSound(type) {
+            initAudio();
+            if (!audioCtx) return;
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'pop') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+                gain.gain.setValueAtTime(0.5, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+                osc.start(now);
+                osc.stop(now + 0.08);
+            } 
+            else if (type === 'boing') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(150, now);
+                osc.frequency.exponentialRampToValueAtTime(600, now + 0.25);
+                gain.gain.setValueAtTime(0.6, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                osc.start(now);
+                osc.stop(now + 0.25);
+            }
+            else if (type === 'badumtss') {
+                // Ba-dum
+                const osc1 = audioCtx.createOscillator();
+                const gain1 = audioCtx.createGain();
+                osc1.connect(gain1);
+                gain1.connect(audioCtx.destination);
+                
+                osc1.frequency.setValueAtTime(120, now);
+                osc1.frequency.exponentialRampToValueAtTime(50, now + 0.1);
+                gain1.gain.setValueAtTime(0.7, now);
+                gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc1.start(now);
+                osc1.stop(now + 0.1);
+
+                // TSS (Noise buffer)
+                setTimeout(() => {
+                    if (!audioCtx) return;
+                    const bufferSize = audioCtx.sampleRate * 0.3;
+                    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = Math.random() * 2 - 1;
+                    }
+                    const noise = audioCtx.createBufferSource();
+                    noise.buffer = buffer;
+                    const noiseGain = audioCtx.createGain();
+                    noiseGain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    noiseGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    noise.connect(noiseGain);
+                    noiseGain.connect(audioCtx.destination);
+                    noise.start();
+                }, 150);
+            }
+            else if (type === 'fanfare') {
+                const notes = [261.63, 329.63, 392.00, 523.25];
+                notes.forEach((freq, idx) => {
+                    const noteOsc = audioCtx.createOscillator();
+                    const noteGain = audioCtx.createGain();
+                    noteOsc.connect(noteGain);
+                    noteGain.connect(audioCtx.destination);
+                    noteOsc.frequency.value = freq;
+                    noteGain.gain.setValueAtTime(0.3, now + idx * 0.1);
+                    noteGain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.1 + 0.2);
+                    noteOsc.start(now + idx * 0.1);
+                    noteOsc.stop(now + idx * 0.1 + 0.2);
+                });
+            }
+            else if (type === 'fail') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.linearRampToValueAtTime(100, now + 0.4);
+                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                osc.start(now);
+                osc.stop(now + 0.4);
+            }
+        }
+
+        /* ================= 1. DEN MENINGSLÖSA KNAPPEN ================= */
+        const uselessMessages = [
+            "Grattis! Du har precis slösat 1 sekund av ditt liv.",
+            "Var god tryck INTE igen.",
+            "Sluta klicka! Knappen blir trött.",
+            "Okej, nu ändrar vi färg på allt!",
+            "Ett universum parallellt med vårt gick precis under på grund av det där klicket.",
+            "Du är väldigt envis, eller hur?",
+            "Laddar ner mer RAM-minne... (Skoja)",
+            "Systemfel: För mycket skoj upptäckt!",
+            "Titta bakom dig! (Kolla inte egentligen)"
+        ];
+
+        function triggerUselessAction() {
+            playSound('boing');
+            
+            // Random action
+            const rand = Math.floor(Math.random() * 6);
+            const msgElem = document.getElementById('useless-msg');
+            const randomText = uselessMessages[Math.floor(Math.random() * uselessMessages.length)];
+            msgElem.innerText = randomText;
+
+            switch(rand) {
+                case 0:
+                    // Confetti explosion
+                    confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+                    break;
+                case 1:
+                    // Rotate body temporarily
+                    document.body.classList.add('rotate-screen');
+                    setTimeout(() => document.body.classList.remove('rotate-screen'), 1500);
+                    break;
+                case 2:
+                    // Shake screen
+                    document.body.classList.add('shake-screen');
+                    setTimeout(() => document.body.classList.remove('shake-screen'), 500);
+                    break;
+                case 3:
+                    // Rainbow bg pulse
+                    document.body.classList.add('rainbow-bg');
+                    setTimeout(() => document.body.classList.remove('rainbow-bg'), 2000);
+                    break;
+                case 4:
+                    // Change button size
+                    const btn = document.getElementById('useless-btn');
+                    btn.style.transform = `scale(${Math.random() * 0.5 + 0.8}) rotate(${Math.random() * 20 - 10}deg)`;
+                    break;
+                case 5:
+                    // Alert replacement modal joke
+                    showCustomToast("⚠️ VARNING: Din datormus har blivit 10% mer svensk.");
+                    break;
+            }
+        }
+
+        function showCustomToast(text) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-5 right-5 bg-black text-white p-4 rounded-2xl border-2 border-yellow-400 font-bold z-50 shadow-2xl animate-bounce';
+            toast.innerText = text;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        /* ================= 2. PAPPASKÄMT-GENERATOR ================= */
+        const jokes = [
+            { q: "Varför gick kycklingen över vägen?", a: "För att komma till fikat på andra sidan!" },
+            { q: "Vad kallas en elak krokodil?", a: "Slem-krokodill!" },
+            { q: "Vilket verktyg dricker mest kaffe?", a: "Mutter-dragaren!" },
+            { q: "Vad gör en tandläkare på lunchen?", a: "Biter i det sura äpplet!" },
+            { q: "Vad sa den ena väggen till den andra?", a: "Vi möts i hörnet!" },
+            { q: "Varför är göteborgare så bra på fotboll?", a: "De har ju Hisingen!" },
+            { q: "Vad heter Finlands sämsta skidåkare?", a: "Sacko Linders!" },
+            { q: "Vad kallas en snabb fisk?", a: "Sill-snabb!" },
+            { q: "Vet du varför fiskar är så kloka?", a: "De går i stim!" }
+        ];
+
+        let currentJoke = null;
+
+        function generateJoke() {
+            playSound('pop');
+            const jokeObj = jokes[Math.floor(Math.random() * jokes.length)];
+            currentJoke = jokeObj;
+
+            document.getElementById('joke-text').innerText = jokeObj.q;
+            const punchlineElem = document.getElementById('joke-punchline');
+            punchlineElem.innerText = "";
+            punchlineElem.classList.add('hidden');
+
+            const punchBtn = document.getElementById('punchline-btn');
+            punchBtn.disabled = false;
+            punchBtn.classList.remove('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
+            punchBtn.classList.add('bg-blue-500', 'text-white', 'hover:bg-blue-600', 'cursor-pointer');
+        }
+
+        function showPunchline() {
+            if (!currentJoke) return;
+            playSound('badumtss');
+            const punchlineElem = document.getElementById('joke-punchline');
+            punchlineElem.innerText = currentJoke.a;
+            punchlineElem.classList.remove('hidden');
+
+            // Trigger confetti for the dad joke
+            confetti({ particleCount: 30, spread: 50, origin: { y: 0.7 } });
+
+            const punchBtn = document.getElementById('punchline-btn');
+            punchBtn.disabled = true;
+            punchBtn.classList.add('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
+            punchBtn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+        }
+
+        /* ================= 3. KANELBULLE-KLICKAREN ================= */
+        let bullar = 0;
+        let clickPower = 1;
+        let bullarPerSecond = 0;
+
+        let upg1Cost = 10;
+        let upg2Cost = 50;
+        let upg3Cost = 200;
+
+        function clickBulle(event) {
+            playSound('pop');
+            bullar += clickPower;
+            updateBulleUI();
+
+            // Floating +1 text effect
+            const bulleElem = document.getElementById('bulle-btn');
+            const floatText = document.createElement('div');
+            floatText.className = 'floating-text';
+            floatText.innerText = `+${clickPower}`;
+            
+            // Position near click
+            const rect = bulleElem.getBoundingClientRect();
+            floatText.style.left = `${event.clientX - rect.left + (Math.random() * 20 - 10)}px`;
+            floatText.style.top = `${event.clientY - rect.top - 20}px`;
+
+            bulleElem.parentElement.appendChild(floatText);
+            setTimeout(() => floatText.remove(), 1000);
+        }
+
+        function buyUpgrade(type) {
+            if (type === 1 && bullar >= upg1Cost) {
+                bullar -= upg1Cost;
+                clickPower += 1;
+                upg1Cost = Math.floor(upg1Cost * 1.5);
+                playSound('fanfare');
+            } else if (type === 2 && bullar >= upg2Cost) {
+                bullar -= upg2Cost;
+                bullarPerSecond += 2;
+                upg2Cost = Math.floor(upg2Cost * 1.6);
+                playSound('fanfare');
+            } else if (type === 3 && bullar >= upg3Cost) {
+                bullar -= upg3Cost;
+                bullarPerSecond += 10;
+                upg3Cost = Math.floor(upg3Cost * 1.7);
+                playSound('fanfare');
+            }
+            updateBulleUI();
+        }
+
+        function updateBulleUI() {
+            document.getElementById('bulle-count').innerText = Math.floor(bullar);
+            document.getElementById('bps-count').innerText = bullarPerSecond;
+
+            document.getElementById('upg1-cost').innerText = `${upg1Cost} bullar`;
+            document.getElementById('upg2-cost').innerText = `${upg2Cost} bullar`;
+            document.getElementById('upg3-cost').innerText = `${upg3Cost} bullar`;
+
+            document.getElementById('upg1-btn').disabled = bullar < upg1Cost;
+            document.getElementById('upg2-btn').disabled = bullar < upg2Cost;
+            document.getElementById('upg3-btn').disabled = bullar < upg3Cost;
+        }
+
+        // Passive Income Loop
+        setInterval(() => {
+            if (bullarPerSecond > 0) {
+                bullar += bullarPerSecond / 10;
+                updateBulleUI();
+            }
+        }, 100);
+
+        /* ================= 4. URSÄKTSGENERATOR ================= */
+        const excuses = {
+            boss: [
+                "Jag analyserar finansiella flöden i kanelbulle-sektorn för att optimera företagets fika-ROI.",
+                "Min dator drabbades av en akut brist på kaffe och jag utför digital HLR.",
+                "Jag väntar på ett extremt viktigt e-postmeddelande från Kalle Anka.",
+                "Jag kör ett stresstest på mitt tålamod. Det går sådär."
+            ],
+            partner: [
+                "Dammsugaren uttryckte en existentiell kris och behövde utrymme.",
+                "Jag tränar mina fingermuskler så att jag kan bära tyngre matkassar sen.",
+                "Katten sa att det var min tur att vakta skärmen.",
+                "Jag letar efter ett recept på en middag som lagar sig själv."
+            ],
+            friend: [
+                "Jag blev tillfälligt förlamad av en extremt stark känsla av lathet.",
+                "Min rygg sa 'nej' och min soffa sa 'kom hit'. Jag måste respektera deras beslut.",
+                "Jag sitter i en viktig förhandling med min motivation.",
+                "Jag har fått en akut överkänslighet mot kartonger och bärhjälp."
+            ],
+            dinner: [
+                "Min guldfisk råkade svälja sin egen tunga och kräver min fulla uppmärksamhet.",
+                "Jag har drabbats av en spontan allergi mot artighetsprat.",
+                "Min kalender råkade spontanförbrännas precis där er inbjudan stod.",
+                "Jag håller på att lösa ett Rubiks kub i blindo."
+            ]
+        };
+
+        function generateExcuse() {
+            playSound('pop');
+            const sit = document.getElementById('excuse-situation').value;
+            const list = excuses[sit];
+            const randomExcuse = list[Math.floor(Math.random() * list.length)];
+            
+            const output = document.getElementById('excuse-output');
+            output.innerText = `"${randomExcuse}"`;
+        }
+
+        /* ================= 5. TÅLAMODSTESTET ================= */
+        let tryCount = 0;
+        const patienceMessages = [
+            "Status: Lugn som en filbunke 🧘",
+            "Status: Lite irriterad 🤨",
+            "Status: Blodtrycket stiger 😤",
+            "Status: Nära ett utbrott! 🤬",
+            "Status: TOTAL SKÄRMFÖRSTÖRELSE NÄRA 💥"
+        ];
+
+        function moveButton() {
+            playSound('boing');
+            tryCount++;
+            document.getElementById('try-count').innerText = tryCount;
+
+            // Change status message based on tries
+            const statusIdx = Math.min(Math.floor(tryCount / 3), patienceMessages.length - 1);
+            document.getElementById('patience-status').innerText = `Antal försök: ${tryCount} | ${patienceMessages[statusIdx]}`;
+
+            const arena = document.getElementById('game-arena');
+            const btn = document.getElementById('elusive-btn');
+
+            const maxX = arena.clientWidth - btn.clientWidth - 20;
+            const maxY = arena.clientHeight - btn.clientHeight - 20;
+
+            const newX = Math.max(10, Math.floor(Math.random() * maxX));
+            const newY = Math.max(10, Math.floor(Math.random() * maxY));
+
+            btn.style.left = `${newX}px`;
+            btn.style.top = `${newY}px`;
+        }
+
+        function winGame() {
+            playSound('fanfare');
+            confetti({ particleCount: 150, spread: 100, origin: { y: 0.5 } });
+            
+            const btn = document.getElementById('elusive-btn');
+            btn.innerText = "DU KLARADE DET! 🏆";
+            btn.className = "absolute bg-yellow-400 text-black font-bungee px-6 py-3 rounded-xl border-4 border-black text-xl shadow-2xl";
+            btn.onmouseover = null; // Stop moving
+        }
+
+        // Initialize button position in center on load
+        window.onload = function() {
+            const btn = document.getElementById('elusive-btn');
+            btn.style.left = 'calc(50% - 60px)';
+            btn.style.top = 'calc(50% - 20px)';
+        };
+    </script>
+</body>
+</html>
